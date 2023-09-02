@@ -1,0 +1,10 @@
+*.hex
+build*
+*.bin
+*.ihx
+*.map
+*.mem
+*.rst
+*.rel
+*.sym
+*.asm

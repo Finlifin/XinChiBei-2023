@@ -1,0 +1,912 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module main
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _main
+                                     12 	.globl _Right_Forward
+                                     13 	.globl _Left_Forward
+                                     14 	.globl _Disale_Right
+                                     15 	.globl _LCD_Write_Data
+                                     16 	.globl _LCD_Write_Com
+                                     17 	.globl _Delay_Ms
+                                     18 	.globl _CY
+                                     19 	.globl _AC
+                                     20 	.globl _F0
+                                     21 	.globl _RS1
+                                     22 	.globl _RS0
+                                     23 	.globl _OV
+                                     24 	.globl _F1
+                                     25 	.globl _P
+                                     26 	.globl _PS
+                                     27 	.globl _PT1
+                                     28 	.globl _PX1
+                                     29 	.globl _PT0
+                                     30 	.globl _PX0
+                                     31 	.globl _RD
+                                     32 	.globl _WR
+                                     33 	.globl _T1
+                                     34 	.globl _T0
+                                     35 	.globl _INT1
+                                     36 	.globl _INT0
+                                     37 	.globl _TXD
+                                     38 	.globl _RXD
+                                     39 	.globl _P3_7
+                                     40 	.globl _P3_6
+                                     41 	.globl _P3_5
+                                     42 	.globl _P3_4
+                                     43 	.globl _P3_3
+                                     44 	.globl _P3_2
+                                     45 	.globl _P3_1
+                                     46 	.globl _P3_0
+                                     47 	.globl _EA
+                                     48 	.globl _ES
+                                     49 	.globl _ET1
+                                     50 	.globl _EX1
+                                     51 	.globl _ET0
+                                     52 	.globl _EX0
+                                     53 	.globl _P2_7
+                                     54 	.globl _P2_6
+                                     55 	.globl _P2_5
+                                     56 	.globl _P2_4
+                                     57 	.globl _P2_3
+                                     58 	.globl _P2_2
+                                     59 	.globl _P2_1
+                                     60 	.globl _P2_0
+                                     61 	.globl _SM0
+                                     62 	.globl _SM1
+                                     63 	.globl _SM2
+                                     64 	.globl _REN
+                                     65 	.globl _TB8
+                                     66 	.globl _RB8
+                                     67 	.globl _TI
+                                     68 	.globl _RI
+                                     69 	.globl _P1_7
+                                     70 	.globl _P1_6
+                                     71 	.globl _P1_5
+                                     72 	.globl _P1_4
+                                     73 	.globl _P1_3
+                                     74 	.globl _P1_2
+                                     75 	.globl _P1_1
+                                     76 	.globl _P1_0
+                                     77 	.globl _TF1
+                                     78 	.globl _TR1
+                                     79 	.globl _TF0
+                                     80 	.globl _TR0
+                                     81 	.globl _IE1
+                                     82 	.globl _IT1
+                                     83 	.globl _IE0
+                                     84 	.globl _IT0
+                                     85 	.globl _P0_7
+                                     86 	.globl _P0_6
+                                     87 	.globl _P0_5
+                                     88 	.globl _P0_4
+                                     89 	.globl _P0_3
+                                     90 	.globl _P0_2
+                                     91 	.globl _P0_1
+                                     92 	.globl _P0_0
+                                     93 	.globl _B
+                                     94 	.globl _ACC
+                                     95 	.globl _PSW
+                                     96 	.globl _IP
+                                     97 	.globl _P3
+                                     98 	.globl _IE
+                                     99 	.globl _P2
+                                    100 	.globl _SBUF
+                                    101 	.globl _SCON
+                                    102 	.globl _P1
+                                    103 	.globl _TH1
+                                    104 	.globl _TH0
+                                    105 	.globl _TL1
+                                    106 	.globl _TL0
+                                    107 	.globl _TMOD
+                                    108 	.globl _TCON
+                                    109 	.globl _PCON
+                                    110 	.globl _DPH
+                                    111 	.globl _DPL
+                                    112 	.globl _SP
+                                    113 	.globl _P0
+                                    114 	.globl _LCD_Write_String_PARM_3
+                                    115 	.globl _LCD_Write_String_PARM_2
+                                    116 	.globl _LCD_Write_Char_PARM_3
+                                    117 	.globl _LCD_Write_Char_PARM_2
+                                    118 	.globl _LCD_Init
+                                    119 	.globl _LCD_Clear
+                                    120 	.globl _LCD_Write_Char
+                                    121 	.globl _LCD_Write_String
+                                    122 	.globl _delay
+                                    123 	.globl _Bee
+                                    124 	.globl _Enable_Left
+                                    125 	.globl _Enable_Right
+                                    126 	.globl _Disable_Left
+                                    127 	.globl _Left_Forward
+                                    128 	.globl _Left_Backward
+                                    129 	.globl _Right_Backward
+                                    130 	.globl _Right_Forward
+                                    131 	.globl _Stop
+                                    132 	.globl _Right_Rotate
+                                    133 	.globl _Right_Rotate_Fast
+                                    134 	.globl _Left_Rotate
+                                    135 	.globl _Left_Rotate_Fast
+                                    136 ;--------------------------------------------------------
+                                    137 ; special function registers
+                                    138 ;--------------------------------------------------------
+                                    139 	.area RSEG    (ABS,DATA)
+      000000                        140 	.org 0x0000
+                           000080   141 _P0	=	0x0080
+                           000081   142 _SP	=	0x0081
+                           000082   143 _DPL	=	0x0082
+                           000083   144 _DPH	=	0x0083
+                           000087   145 _PCON	=	0x0087
+                           000088   146 _TCON	=	0x0088
+                           000089   147 _TMOD	=	0x0089
+                           00008A   148 _TL0	=	0x008a
+                           00008B   149 _TL1	=	0x008b
+                           00008C   150 _TH0	=	0x008c
+                           00008D   151 _TH1	=	0x008d
+                           000090   152 _P1	=	0x0090
+                           000098   153 _SCON	=	0x0098
+                           000099   154 _SBUF	=	0x0099
+                           0000A0   155 _P2	=	0x00a0
+                           0000A8   156 _IE	=	0x00a8
+                           0000B0   157 _P3	=	0x00b0
+                           0000B8   158 _IP	=	0x00b8
+                           0000D0   159 _PSW	=	0x00d0
+                           0000E0   160 _ACC	=	0x00e0
+                           0000F0   161 _B	=	0x00f0
+                                    162 ;--------------------------------------------------------
+                                    163 ; special function bits
+                                    164 ;--------------------------------------------------------
+                                    165 	.area RSEG    (ABS,DATA)
+      000000                        166 	.org 0x0000
+                           000080   167 _P0_0	=	0x0080
+                           000081   168 _P0_1	=	0x0081
+                           000082   169 _P0_2	=	0x0082
+                           000083   170 _P0_3	=	0x0083
+                           000084   171 _P0_4	=	0x0084
+                           000085   172 _P0_5	=	0x0085
+                           000086   173 _P0_6	=	0x0086
+                           000087   174 _P0_7	=	0x0087
+                           000088   175 _IT0	=	0x0088
+                           000089   176 _IE0	=	0x0089
+                           00008A   177 _IT1	=	0x008a
+                           00008B   178 _IE1	=	0x008b
+                           00008C   179 _TR0	=	0x008c
+                           00008D   180 _TF0	=	0x008d
+                           00008E   181 _TR1	=	0x008e
+                           00008F   182 _TF1	=	0x008f
+                           000090   183 _P1_0	=	0x0090
+                           000091   184 _P1_1	=	0x0091
+                           000092   185 _P1_2	=	0x0092
+                           000093   186 _P1_3	=	0x0093
+                           000094   187 _P1_4	=	0x0094
+                           000095   188 _P1_5	=	0x0095
+                           000096   189 _P1_6	=	0x0096
+                           000097   190 _P1_7	=	0x0097
+                           000098   191 _RI	=	0x0098
+                           000099   192 _TI	=	0x0099
+                           00009A   193 _RB8	=	0x009a
+                           00009B   194 _TB8	=	0x009b
+                           00009C   195 _REN	=	0x009c
+                           00009D   196 _SM2	=	0x009d
+                           00009E   197 _SM1	=	0x009e
+                           00009F   198 _SM0	=	0x009f
+                           0000A0   199 _P2_0	=	0x00a0
+                           0000A1   200 _P2_1	=	0x00a1
+                           0000A2   201 _P2_2	=	0x00a2
+                           0000A3   202 _P2_3	=	0x00a3
+                           0000A4   203 _P2_4	=	0x00a4
+                           0000A5   204 _P2_5	=	0x00a5
+                           0000A6   205 _P2_6	=	0x00a6
+                           0000A7   206 _P2_7	=	0x00a7
+                           0000A8   207 _EX0	=	0x00a8
+                           0000A9   208 _ET0	=	0x00a9
+                           0000AA   209 _EX1	=	0x00aa
+                           0000AB   210 _ET1	=	0x00ab
+                           0000AC   211 _ES	=	0x00ac
+                           0000AF   212 _EA	=	0x00af
+                           0000B0   213 _P3_0	=	0x00b0
+                           0000B1   214 _P3_1	=	0x00b1
+                           0000B2   215 _P3_2	=	0x00b2
+                           0000B3   216 _P3_3	=	0x00b3
+                           0000B4   217 _P3_4	=	0x00b4
+                           0000B5   218 _P3_5	=	0x00b5
+                           0000B6   219 _P3_6	=	0x00b6
+                           0000B7   220 _P3_7	=	0x00b7
+                           0000B0   221 _RXD	=	0x00b0
+                           0000B1   222 _TXD	=	0x00b1
+                           0000B2   223 _INT0	=	0x00b2
+                           0000B3   224 _INT1	=	0x00b3
+                           0000B4   225 _T0	=	0x00b4
+                           0000B5   226 _T1	=	0x00b5
+                           0000B6   227 _WR	=	0x00b6
+                           0000B7   228 _RD	=	0x00b7
+                           0000B8   229 _PX0	=	0x00b8
+                           0000B9   230 _PT0	=	0x00b9
+                           0000BA   231 _PX1	=	0x00ba
+                           0000BB   232 _PT1	=	0x00bb
+                           0000BC   233 _PS	=	0x00bc
+                           0000D0   234 _P	=	0x00d0
+                           0000D1   235 _F1	=	0x00d1
+                           0000D2   236 _OV	=	0x00d2
+                           0000D3   237 _RS0	=	0x00d3
+                           0000D4   238 _RS1	=	0x00d4
+                           0000D5   239 _F0	=	0x00d5
+                           0000D6   240 _AC	=	0x00d6
+                           0000D7   241 _CY	=	0x00d7
+                                    242 ;--------------------------------------------------------
+                                    243 ; overlayable register banks
+                                    244 ;--------------------------------------------------------
+                                    245 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        246 	.ds 8
+                                    247 ;--------------------------------------------------------
+                                    248 ; internal ram data
+                                    249 ;--------------------------------------------------------
+                                    250 	.area DSEG    (DATA)
+      000000                        251 _LCD_Write_Char_PARM_2:
+      000000                        252 	.ds 1
+      000001                        253 _LCD_Write_Char_PARM_3:
+      000001                        254 	.ds 1
+      000002                        255 _LCD_Write_String_PARM_2:
+      000002                        256 	.ds 1
+      000003                        257 _LCD_Write_String_PARM_3:
+      000003                        258 	.ds 3
+                                    259 ;--------------------------------------------------------
+                                    260 ; overlayable items in internal ram
+                                    261 ;--------------------------------------------------------
+                                    262 	.area	OSEG    (OVR,DATA)
+                                    263 ;--------------------------------------------------------
+                                    264 ; Stack segment in internal ram
+                                    265 ;--------------------------------------------------------
+                                    266 	.area	SSEG
+      000000                        267 __start__stack:
+      000000                        268 	.ds	1
+                                    269 
+                                    270 ;--------------------------------------------------------
+                                    271 ; indirectly addressable internal ram data
+                                    272 ;--------------------------------------------------------
+                                    273 	.area ISEG    (DATA)
+                                    274 ;--------------------------------------------------------
+                                    275 ; absolute internal ram data
+                                    276 ;--------------------------------------------------------
+                                    277 	.area IABS    (ABS,DATA)
+                                    278 	.area IABS    (ABS,DATA)
+                                    279 ;--------------------------------------------------------
+                                    280 ; bit data
+                                    281 ;--------------------------------------------------------
+                                    282 	.area BSEG    (BIT)
+                                    283 ;--------------------------------------------------------
+                                    284 ; paged external ram data
+                                    285 ;--------------------------------------------------------
+                                    286 	.area PSEG    (PAG,XDATA)
+                                    287 ;--------------------------------------------------------
+                                    288 ; external ram data
+                                    289 ;--------------------------------------------------------
+                                    290 	.area XSEG    (XDATA)
+                                    291 ;--------------------------------------------------------
+                                    292 ; absolute external ram data
+                                    293 ;--------------------------------------------------------
+                                    294 	.area XABS    (ABS,XDATA)
+                                    295 ;--------------------------------------------------------
+                                    296 ; external initialized ram data
+                                    297 ;--------------------------------------------------------
+                                    298 	.area XISEG   (XDATA)
+                                    299 	.area HOME    (CODE)
+                                    300 	.area GSINIT0 (CODE)
+                                    301 	.area GSINIT1 (CODE)
+                                    302 	.area GSINIT2 (CODE)
+                                    303 	.area GSINIT3 (CODE)
+                                    304 	.area GSINIT4 (CODE)
+                                    305 	.area GSINIT5 (CODE)
+                                    306 	.area GSINIT  (CODE)
+                                    307 	.area GSFINAL (CODE)
+                                    308 	.area CSEG    (CODE)
+                                    309 ;--------------------------------------------------------
+                                    310 ; interrupt vector
+                                    311 ;--------------------------------------------------------
+                                    312 	.area HOME    (CODE)
+      000000                        313 __interrupt_vect:
+      000000 02r00r00         [24]  314 	ljmp	__sdcc_gsinit_startup
+                                    315 ;--------------------------------------------------------
+                                    316 ; global & static initialisations
+                                    317 ;--------------------------------------------------------
+                                    318 	.area HOME    (CODE)
+                                    319 	.area GSINIT  (CODE)
+                                    320 	.area GSFINAL (CODE)
+                                    321 	.area GSINIT  (CODE)
+                                    322 	.globl __sdcc_gsinit_startup
+                                    323 	.globl __sdcc_program_startup
+                                    324 	.globl __start__stack
+                                    325 	.globl __mcs51_genXINIT
+                                    326 	.globl __mcs51_genXRAMCLEAR
+                                    327 	.globl __mcs51_genRAMCLEAR
+                                    328 	.area GSFINAL (CODE)
+      000000 02r00r03         [24]  329 	ljmp	__sdcc_program_startup
+                                    330 ;--------------------------------------------------------
+                                    331 ; Home
+                                    332 ;--------------------------------------------------------
+                                    333 	.area HOME    (CODE)
+                                    334 	.area HOME    (CODE)
+      000003                        335 __sdcc_program_startup:
+      000003 02r01r8F         [24]  336 	ljmp	_main
+                                    337 ;	return from main will return to caller
+                                    338 ;--------------------------------------------------------
+                                    339 ; code
+                                    340 ;--------------------------------------------------------
+                                    341 	.area CSEG    (CODE)
+                                    342 ;------------------------------------------------------------
+                                    343 ;Allocation info for local variables in function 'Delay_Ms'
+                                    344 ;------------------------------------------------------------
+                                    345 ;ms                        Allocated to registers r7 
+                                    346 ;count                     Allocated to registers r5 r6 
+                                    347 ;------------------------------------------------------------
+                                    348 ;	lcd.c:3: void Delay_Ms(unsigned char ms) {
+                                    349 ;	-----------------------------------------
+                                    350 ;	 function Delay_Ms
+                                    351 ;	-----------------------------------------
+      000000                        352 _Delay_Ms:
+                           000007   353 	ar7 = 0x07
+                           000006   354 	ar6 = 0x06
+                           000005   355 	ar5 = 0x05
+                           000004   356 	ar4 = 0x04
+                           000003   357 	ar3 = 0x03
+                           000002   358 	ar2 = 0x02
+                           000001   359 	ar1 = 0x01
+                           000000   360 	ar0 = 0x00
+      000000 AF 82            [24]  361 	mov	r7,dpl
+                                    362 ;	lcd.c:5: for (count = 0; count < ms * 114; count++)
+      000002 7D 00            [12]  363 	mov	r5,#0x00
+      000004 7E 00            [12]  364 	mov	r6,#0x00
+      000006                        365 00103$:
+      000006 8F*00            [24]  366 	mov	__mulint_PARM_2,r7
+      000008 75*01 00         [24]  367 	mov	(__mulint_PARM_2 + 1),#0x00
+      00000B 90 00 72         [24]  368 	mov	dptr,#0x0072
+      00000E C0 07            [24]  369 	push	ar7
+      000010 C0 06            [24]  370 	push	ar6
+      000012 C0 05            [24]  371 	push	ar5
+      000014 12r00r00         [24]  372 	lcall	__mulint
+      000017 AB 82            [24]  373 	mov	r3,dpl
+      000019 AC 83            [24]  374 	mov	r4,dph
+      00001B D0 05            [24]  375 	pop	ar5
+      00001D D0 06            [24]  376 	pop	ar6
+      00001F D0 07            [24]  377 	pop	ar7
+      000021 C3               [12]  378 	clr	c
+      000022 ED               [12]  379 	mov	a,r5
+      000023 9B               [12]  380 	subb	a,r3
+      000024 EE               [12]  381 	mov	a,r6
+      000025 9C               [12]  382 	subb	a,r4
+      000026 50 07            [24]  383 	jnc	00105$
+      000028 0D               [12]  384 	inc	r5
+      000029 BD 00 DA         [24]  385 	cjne	r5,#0x00,00103$
+      00002C 0E               [12]  386 	inc	r6
+      00002D 80 D7            [24]  387 	sjmp	00103$
+      00002F                        388 00105$:
+                                    389 ;	lcd.c:7: }
+      00002F 22               [24]  390 	ret
+                                    391 ;------------------------------------------------------------
+                                    392 ;Allocation info for local variables in function 'LCD_Write_Com'
+                                    393 ;------------------------------------------------------------
+                                    394 ;mode                      Allocated to registers r7 
+                                    395 ;------------------------------------------------------------
+                                    396 ;	lcd.c:8: void LCD_Write_Com(unsigned char mode) {
+                                    397 ;	-----------------------------------------
+                                    398 ;	 function LCD_Write_Com
+                                    399 ;	-----------------------------------------
+      000030                        400 _LCD_Write_Com:
+      000030 AF 82            [24]  401 	mov	r7,dpl
+                                    402 ;	lcd.c:9: Delay_Ms(5);
+      000032 75 82 05         [24]  403 	mov	dpl,#0x05
+      000035 C0 07            [24]  404 	push	ar7
+      000037 12r00r00         [24]  405 	lcall	_Delay_Ms
+      00003A D0 07            [24]  406 	pop	ar7
+                                    407 ;	lcd.c:10: RS_CLR;
+                                    408 ;	assignBit
+      00003C C2 B5            [12]  409 	clr	_P3_5
+                                    410 ;	lcd.c:11: RW_CLR;
+                                    411 ;	assignBit
+      00003E C2 B6            [12]  412 	clr	_P3_6
+                                    413 ;	lcd.c:12: EN_SET;
+                                    414 ;	assignBit
+      000040 D2 B4            [12]  415 	setb	_P3_4
+                                    416 ;	lcd.c:13: DataPort = mode;
+      000042 8F 80            [24]  417 	mov	_P0,r7
+                                    418 ;	lcd.c:16: __endasm;
+                                    419 ;
+      000044 00               [12]  420 	nop;
+                                    421 ;	lcd.c:18: EN_CLR;
+                                    422 ;	assignBit
+      000045 C2 B4            [12]  423 	clr	_P3_4
+                                    424 ;	lcd.c:19: }
+      000047 22               [24]  425 	ret
+                                    426 ;------------------------------------------------------------
+                                    427 ;Allocation info for local variables in function 'LCD_Init'
+                                    428 ;------------------------------------------------------------
+                                    429 ;	lcd.c:21: void LCD_Init() {
+                                    430 ;	-----------------------------------------
+                                    431 ;	 function LCD_Init
+                                    432 ;	-----------------------------------------
+      000048                        433 _LCD_Init:
+                                    434 ;	lcd.c:22: LCD_Write_Com(0x38); // 设置显示模式
+      000048 75 82 38         [24]  435 	mov	dpl,#0x38
+      00004B 12r00r30         [24]  436 	lcall	_LCD_Write_Com
+                                    437 ;	lcd.c:23: Delay_Ms(5);
+      00004E 75 82 05         [24]  438 	mov	dpl,#0x05
+      000051 12r00r00         [24]  439 	lcall	_Delay_Ms
+                                    440 ;	lcd.c:24: LCD_Write_Com(0x38);
+      000054 75 82 38         [24]  441 	mov	dpl,#0x38
+      000057 12r00r30         [24]  442 	lcall	_LCD_Write_Com
+                                    443 ;	lcd.c:25: Delay_Ms(5);
+      00005A 75 82 05         [24]  444 	mov	dpl,#0x05
+      00005D 12r00r00         [24]  445 	lcall	_Delay_Ms
+                                    446 ;	lcd.c:26: LCD_Write_Com(0x38);
+      000060 75 82 38         [24]  447 	mov	dpl,#0x38
+      000063 12r00r30         [24]  448 	lcall	_LCD_Write_Com
+                                    449 ;	lcd.c:27: Delay_Ms(5);
+      000066 75 82 05         [24]  450 	mov	dpl,#0x05
+      000069 12r00r00         [24]  451 	lcall	_Delay_Ms
+                                    452 ;	lcd.c:28: LCD_Write_Com(0x38);
+      00006C 75 82 38         [24]  453 	mov	dpl,#0x38
+      00006F 12r00r30         [24]  454 	lcall	_LCD_Write_Com
+                                    455 ;	lcd.c:29: Delay_Ms(5);
+      000072 75 82 05         [24]  456 	mov	dpl,#0x05
+      000075 12r00r00         [24]  457 	lcall	_Delay_Ms
+                                    458 ;	lcd.c:30: LCD_Write_Com(0x38);
+      000078 75 82 38         [24]  459 	mov	dpl,#0x38
+      00007B 12r00r30         [24]  460 	lcall	_LCD_Write_Com
+                                    461 ;	lcd.c:31: LCD_Write_Com(0x08); // 关闭显示
+      00007E 75 82 08         [24]  462 	mov	dpl,#0x08
+      000081 12r00r30         [24]  463 	lcall	_LCD_Write_Com
+                                    464 ;	lcd.c:32: LCD_Write_Com(0x01); // 显示清屏
+      000084 75 82 01         [24]  465 	mov	dpl,#0x01
+      000087 12r00r30         [24]  466 	lcall	_LCD_Write_Com
+                                    467 ;	lcd.c:33: LCD_Write_Com(0x06); // 设置光标位置
+      00008A 75 82 06         [24]  468 	mov	dpl,#0x06
+      00008D 12r00r30         [24]  469 	lcall	_LCD_Write_Com
+                                    470 ;	lcd.c:34: Delay_Ms(5);
+      000090 75 82 05         [24]  471 	mov	dpl,#0x05
+      000093 12r00r00         [24]  472 	lcall	_Delay_Ms
+                                    473 ;	lcd.c:35: LCD_Write_Com(0x0c); // 显示光标
+      000096 75 82 0C         [24]  474 	mov	dpl,#0x0c
+                                    475 ;	lcd.c:36: }
+      000099 02r00r30         [24]  476 	ljmp	_LCD_Write_Com
+                                    477 ;------------------------------------------------------------
+                                    478 ;Allocation info for local variables in function 'LCD_Write_Data'
+                                    479 ;------------------------------------------------------------
+                                    480 ;data                      Allocated to registers r7 
+                                    481 ;------------------------------------------------------------
+                                    482 ;	lcd.c:38: void LCD_Write_Data(unsigned char data) {
+                                    483 ;	-----------------------------------------
+                                    484 ;	 function LCD_Write_Data
+                                    485 ;	-----------------------------------------
+      00009C                        486 _LCD_Write_Data:
+      00009C AF 82            [24]  487 	mov	r7,dpl
+                                    488 ;	lcd.c:39: Delay_Ms(5);
+      00009E 75 82 05         [24]  489 	mov	dpl,#0x05
+      0000A1 C0 07            [24]  490 	push	ar7
+      0000A3 12r00r00         [24]  491 	lcall	_Delay_Ms
+      0000A6 D0 07            [24]  492 	pop	ar7
+                                    493 ;	lcd.c:40: RS_SET;
+                                    494 ;	assignBit
+      0000A8 D2 B5            [12]  495 	setb	_P3_5
+                                    496 ;	lcd.c:41: RW_CLR;
+                                    497 ;	assignBit
+      0000AA C2 B6            [12]  498 	clr	_P3_6
+                                    499 ;	lcd.c:42: EN_SET;
+                                    500 ;	assignBit
+      0000AC D2 B4            [12]  501 	setb	_P3_4
+                                    502 ;	lcd.c:43: DataPort = data;
+      0000AE 8F 80            [24]  503 	mov	_P0,r7
+                                    504 ;	lcd.c:46: __endasm;
+                                    505 ;
+      0000B0 00               [12]  506 	nop;
+                                    507 ;	lcd.c:47: EN_CLR;
+                                    508 ;	assignBit
+      0000B1 C2 B4            [12]  509 	clr	_P3_4
+                                    510 ;	lcd.c:48: }
+      0000B3 22               [24]  511 	ret
+                                    512 ;------------------------------------------------------------
+                                    513 ;Allocation info for local variables in function 'LCD_Clear'
+                                    514 ;------------------------------------------------------------
+                                    515 ;	lcd.c:50: void LCD_Clear() {
+                                    516 ;	-----------------------------------------
+                                    517 ;	 function LCD_Clear
+                                    518 ;	-----------------------------------------
+      0000B4                        519 _LCD_Clear:
+                                    520 ;	lcd.c:51: LCD_Write_Com(0x01);
+      0000B4 75 82 01         [24]  521 	mov	dpl,#0x01
+      0000B7 12r00r30         [24]  522 	lcall	_LCD_Write_Com
+                                    523 ;	lcd.c:52: Delay_Ms(5);
+      0000BA 75 82 05         [24]  524 	mov	dpl,#0x05
+                                    525 ;	lcd.c:53: }
+      0000BD 02r00r00         [24]  526 	ljmp	_Delay_Ms
+                                    527 ;------------------------------------------------------------
+                                    528 ;Allocation info for local variables in function 'LCD_Write_Char'
+                                    529 ;------------------------------------------------------------
+                                    530 ;y                         Allocated with name '_LCD_Write_Char_PARM_2'
+                                    531 ;c                         Allocated with name '_LCD_Write_Char_PARM_3'
+                                    532 ;x                         Allocated to registers r7 
+                                    533 ;------------------------------------------------------------
+                                    534 ;	lcd.c:55: void LCD_Write_Char(unsigned char x, unsigned char y, unsigned char c) {
+                                    535 ;	-----------------------------------------
+                                    536 ;	 function LCD_Write_Char
+                                    537 ;	-----------------------------------------
+      0000C0                        538 _LCD_Write_Char:
+      0000C0 AF 82            [24]  539 	mov	r7,dpl
+                                    540 ;	lcd.c:56: if (y == 0)
+      0000C2 E5*00            [12]  541 	mov	a,_LCD_Write_Char_PARM_2
+      0000C4 70 0C            [24]  542 	jnz	00102$
+                                    543 ;	lcd.c:57: LCD_Write_Com(0x80 + x);
+      0000C6 8F 06            [24]  544 	mov	ar6,r7
+      0000C8 74 80            [12]  545 	mov	a,#0x80
+      0000CA 2E               [12]  546 	add	a,r6
+      0000CB F5 82            [12]  547 	mov	dpl,a
+      0000CD 12r00r30         [24]  548 	lcall	_LCD_Write_Com
+      0000D0 80 08            [24]  549 	sjmp	00103$
+      0000D2                        550 00102$:
+                                    551 ;	lcd.c:59: LCD_Write_Com(0xC0 + x);
+      0000D2 74 C0            [12]  552 	mov	a,#0xc0
+      0000D4 2F               [12]  553 	add	a,r7
+      0000D5 F5 82            [12]  554 	mov	dpl,a
+      0000D7 12r00r30         [24]  555 	lcall	_LCD_Write_Com
+      0000DA                        556 00103$:
+                                    557 ;	lcd.c:60: LCD_Write_Data(c);
+      0000DA 85*01 82         [24]  558 	mov	dpl,_LCD_Write_Char_PARM_3
+                                    559 ;	lcd.c:61: }
+      0000DD 02r00r9C         [24]  560 	ljmp	_LCD_Write_Data
+                                    561 ;------------------------------------------------------------
+                                    562 ;Allocation info for local variables in function 'LCD_Write_String'
+                                    563 ;------------------------------------------------------------
+                                    564 ;y                         Allocated with name '_LCD_Write_String_PARM_2'
+                                    565 ;s                         Allocated with name '_LCD_Write_String_PARM_3'
+                                    566 ;x                         Allocated to registers r7 
+                                    567 ;------------------------------------------------------------
+                                    568 ;	lcd.c:63: void LCD_Write_String(unsigned char x, unsigned char y, unsigned char *s) {
+                                    569 ;	-----------------------------------------
+                                    570 ;	 function LCD_Write_String
+                                    571 ;	-----------------------------------------
+      0000E0                        572 _LCD_Write_String:
+      0000E0 AF 82            [24]  573 	mov	r7,dpl
+                                    574 ;	lcd.c:64: if (y == 0)
+      0000E2 E5*02            [12]  575 	mov	a,_LCD_Write_String_PARM_2
+      0000E4 70 0C            [24]  576 	jnz	00102$
+                                    577 ;	lcd.c:65: LCD_Write_Com(0x80 + x);
+      0000E6 8F 06            [24]  578 	mov	ar6,r7
+      0000E8 74 80            [12]  579 	mov	a,#0x80
+      0000EA 2E               [12]  580 	add	a,r6
+      0000EB F5 82            [12]  581 	mov	dpl,a
+      0000ED 12r00r30         [24]  582 	lcall	_LCD_Write_Com
+      0000F0 80 08            [24]  583 	sjmp	00111$
+      0000F2                        584 00102$:
+                                    585 ;	lcd.c:67: LCD_Write_Com(0xC0 + x);
+      0000F2 74 C0            [12]  586 	mov	a,#0xc0
+      0000F4 2F               [12]  587 	add	a,r7
+      0000F5 F5 82            [12]  588 	mov	dpl,a
+      0000F7 12r00r30         [24]  589 	lcall	_LCD_Write_Com
+                                    590 ;	lcd.c:68: while (*s) {
+      0000FA                        591 00111$:
+      0000FA AD*03            [24]  592 	mov	r5,_LCD_Write_String_PARM_3
+      0000FC AE*04            [24]  593 	mov	r6,(_LCD_Write_String_PARM_3 + 1)
+      0000FE AF*05            [24]  594 	mov	r7,(_LCD_Write_String_PARM_3 + 2)
+      000100                        595 00104$:
+      000100 8D 82            [24]  596 	mov	dpl,r5
+      000102 8E 83            [24]  597 	mov	dph,r6
+      000104 8F F0            [24]  598 	mov	b,r7
+      000106 12r00r00         [24]  599 	lcall	__gptrget
+      000109 FC               [12]  600 	mov	r4,a
+      00010A 60 18            [24]  601 	jz	00107$
+                                    602 ;	lcd.c:69: LCD_Write_Data(*s);
+      00010C 8C 82            [24]  603 	mov	dpl,r4
+      00010E C0 07            [24]  604 	push	ar7
+      000110 C0 06            [24]  605 	push	ar6
+      000112 C0 05            [24]  606 	push	ar5
+      000114 12r00r9C         [24]  607 	lcall	_LCD_Write_Data
+      000117 D0 05            [24]  608 	pop	ar5
+      000119 D0 06            [24]  609 	pop	ar6
+      00011B D0 07            [24]  610 	pop	ar7
+                                    611 ;	lcd.c:70: s++;
+      00011D 0D               [12]  612 	inc	r5
+      00011E BD 00 DF         [24]  613 	cjne	r5,#0x00,00104$
+      000121 0E               [12]  614 	inc	r6
+      000122 80 DC            [24]  615 	sjmp	00104$
+      000124                        616 00107$:
+                                    617 ;	lcd.c:72: }
+      000124 22               [24]  618 	ret
+                                    619 ;------------------------------------------------------------
+                                    620 ;Allocation info for local variables in function 'delay'
+                                    621 ;------------------------------------------------------------
+                                    622 ;ms                        Allocated to registers r7 
+                                    623 ;i                         Allocated to registers r6 
+                                    624 ;j                         Allocated to registers r5 
+                                    625 ;------------------------------------------------------------
+                                    626 ;	utils.c:3: void delay(unsigned char ms) {
+                                    627 ;	-----------------------------------------
+                                    628 ;	 function delay
+                                    629 ;	-----------------------------------------
+      000125                        630 _delay:
+      000125 AF 82            [24]  631 	mov	r7,dpl
+                                    632 ;	utils.c:5: for (i = 0; i < ms; i++) {
+      000127 7E 00            [12]  633 	mov	r6,#0x00
+      000129                        634 00107$:
+      000129 C3               [12]  635 	clr	c
+      00012A EE               [12]  636 	mov	a,r6
+      00012B 9F               [12]  637 	subb	a,r7
+      00012C 50 07            [24]  638 	jnc	00109$
+                                    639 ;	utils.c:6: for (j = 0; j < 111; j++)
+      00012E 7D 6F            [12]  640 	mov	r5,#0x6f
+      000130                        641 00105$:
+      000130 DD FE            [24]  642 	djnz	r5,00105$
+                                    643 ;	utils.c:5: for (i = 0; i < ms; i++) {
+      000132 0E               [12]  644 	inc	r6
+      000133 80 F4            [24]  645 	sjmp	00107$
+      000135                        646 00109$:
+                                    647 ;	utils.c:9: }
+      000135 22               [24]  648 	ret
+                                    649 ;------------------------------------------------------------
+                                    650 ;Allocation info for local variables in function 'Bee'
+                                    651 ;------------------------------------------------------------
+                                    652 ;ms                        Allocated to registers 
+                                    653 ;------------------------------------------------------------
+                                    654 ;	utils.c:11: void Bee(unsigned char ms) {
+                                    655 ;	-----------------------------------------
+                                    656 ;	 function Bee
+                                    657 ;	-----------------------------------------
+      000136                        658 _Bee:
+                                    659 ;	utils.c:12: Bee_ = 0;
+                                    660 ;	assignBit
+      000136 C2 A3            [12]  661 	clr	_P2_3
+                                    662 ;	utils.c:13: delay(ms);
+      000138 12r01r25         [24]  663 	lcall	_delay
+                                    664 ;	utils.c:14: Bee_ = 1;
+                                    665 ;	assignBit
+      00013B D2 A3            [12]  666 	setb	_P2_3
+                                    667 ;	utils.c:15: }
+      00013D 22               [24]  668 	ret
+                                    669 ;------------------------------------------------------------
+                                    670 ;Allocation info for local variables in function 'Enable_Left'
+                                    671 ;------------------------------------------------------------
+                                    672 ;	utils.c:17: void Enable_Left() { Left_Enable_ = 1; }
+                                    673 ;	-----------------------------------------
+                                    674 ;	 function Enable_Left
+                                    675 ;	-----------------------------------------
+      00013E                        676 _Enable_Left:
+                                    677 ;	assignBit
+      00013E D2 94            [12]  678 	setb	_P1_4
+      000140 22               [24]  679 	ret
+                                    680 ;------------------------------------------------------------
+                                    681 ;Allocation info for local variables in function 'Enable_Right'
+                                    682 ;------------------------------------------------------------
+                                    683 ;	utils.c:19: void Enable_Right() { Right_Enable_ = 1; }
+                                    684 ;	-----------------------------------------
+                                    685 ;	 function Enable_Right
+                                    686 ;	-----------------------------------------
+      000141                        687 _Enable_Right:
+                                    688 ;	assignBit
+      000141 D2 95            [12]  689 	setb	_P1_5
+      000143 22               [24]  690 	ret
+                                    691 ;------------------------------------------------------------
+                                    692 ;Allocation info for local variables in function 'Disable_Left'
+                                    693 ;------------------------------------------------------------
+                                    694 ;	utils.c:21: void Disable_Left() { Left_Enable_ = 0; }
+                                    695 ;	-----------------------------------------
+                                    696 ;	 function Disable_Left
+                                    697 ;	-----------------------------------------
+      000144                        698 _Disable_Left:
+                                    699 ;	assignBit
+      000144 C2 94            [12]  700 	clr	_P1_4
+      000146 22               [24]  701 	ret
+                                    702 ;------------------------------------------------------------
+                                    703 ;Allocation info for local variables in function 'Disale_Right'
+                                    704 ;------------------------------------------------------------
+                                    705 ;	utils.c:23: void Disale_Right() { Right_Enable_ = 0; }
+                                    706 ;	-----------------------------------------
+                                    707 ;	 function Disale_Right
+                                    708 ;	-----------------------------------------
+      000147                        709 _Disale_Right:
+                                    710 ;	assignBit
+      000147 C2 95            [12]  711 	clr	_P1_5
+      000149 22               [24]  712 	ret
+                                    713 ;------------------------------------------------------------
+                                    714 ;Allocation info for local variables in function 'Left_Forward'
+                                    715 ;------------------------------------------------------------
+                                    716 ;	utils.c:25: void Left_Forward() {
+                                    717 ;	-----------------------------------------
+                                    718 ;	 function Left_Forward
+                                    719 ;	-----------------------------------------
+      00014A                        720 _Left_Forward:
+                                    721 ;	utils.c:26: Left_Enable_ = 1;
+                                    722 ;	assignBit
+      00014A D2 94            [12]  723 	setb	_P1_4
+                                    724 ;	utils.c:27: Left_Forward_ = 1;
+                                    725 ;	assignBit
+      00014C D2 93            [12]  726 	setb	_P1_3
+                                    727 ;	utils.c:28: }
+      00014E 22               [24]  728 	ret
+                                    729 ;------------------------------------------------------------
+                                    730 ;Allocation info for local variables in function 'Left_Backward'
+                                    731 ;------------------------------------------------------------
+                                    732 ;	utils.c:30: void Left_Backward() {
+                                    733 ;	-----------------------------------------
+                                    734 ;	 function Left_Backward
+                                    735 ;	-----------------------------------------
+      00014F                        736 _Left_Backward:
+                                    737 ;	utils.c:31: Left_Enable_ = 1;
+                                    738 ;	assignBit
+      00014F D2 94            [12]  739 	setb	_P1_4
+                                    740 ;	utils.c:32: Left_Backward_ = 1;
+                                    741 ;	assignBit
+      000151 D2 92            [12]  742 	setb	_P1_2
+                                    743 ;	utils.c:33: }
+      000153 22               [24]  744 	ret
+                                    745 ;------------------------------------------------------------
+                                    746 ;Allocation info for local variables in function 'Right_Backward'
+                                    747 ;------------------------------------------------------------
+                                    748 ;	utils.c:35: void Right_Backward() {
+                                    749 ;	-----------------------------------------
+                                    750 ;	 function Right_Backward
+                                    751 ;	-----------------------------------------
+      000154                        752 _Right_Backward:
+                                    753 ;	utils.c:36: Right_Enable_ = 1;
+                                    754 ;	assignBit
+      000154 D2 95            [12]  755 	setb	_P1_5
+                                    756 ;	utils.c:37: Right_Backward_ = 1;
+                                    757 ;	assignBit
+      000156 D2 97            [12]  758 	setb	_P1_7
+                                    759 ;	utils.c:38: }
+      000158 22               [24]  760 	ret
+                                    761 ;------------------------------------------------------------
+                                    762 ;Allocation info for local variables in function 'Right_Forward'
+                                    763 ;------------------------------------------------------------
+                                    764 ;	utils.c:40: void Right_Forward() {
+                                    765 ;	-----------------------------------------
+                                    766 ;	 function Right_Forward
+                                    767 ;	-----------------------------------------
+      000159                        768 _Right_Forward:
+                                    769 ;	utils.c:41: Right_Enable_ = 1;
+                                    770 ;	assignBit
+      000159 D2 95            [12]  771 	setb	_P1_5
+                                    772 ;	utils.c:42: Right_Forward_ = 1;
+                                    773 ;	assignBit
+      00015B D2 96            [12]  774 	setb	_P1_6
+                                    775 ;	utils.c:43: }
+      00015D 22               [24]  776 	ret
+                                    777 ;------------------------------------------------------------
+                                    778 ;Allocation info for local variables in function 'Stop'
+                                    779 ;------------------------------------------------------------
+                                    780 ;	utils.c:45: void Stop() {
+                                    781 ;	-----------------------------------------
+                                    782 ;	 function Stop
+                                    783 ;	-----------------------------------------
+      00015E                        784 _Stop:
+                                    785 ;	utils.c:46: Left_Enable_ = 0;
+                                    786 ;	assignBit
+      00015E C2 94            [12]  787 	clr	_P1_4
+                                    788 ;	utils.c:47: Right_Enable_ = 0;
+                                    789 ;	assignBit
+      000160 C2 95            [12]  790 	clr	_P1_5
+                                    791 ;	utils.c:48: }
+      000162 22               [24]  792 	ret
+                                    793 ;------------------------------------------------------------
+                                    794 ;Allocation info for local variables in function 'Right_Rotate'
+                                    795 ;------------------------------------------------------------
+                                    796 ;	utils.c:50: void Right_Rotate() {
+                                    797 ;	-----------------------------------------
+                                    798 ;	 function Right_Rotate
+                                    799 ;	-----------------------------------------
+      000163                        800 _Right_Rotate:
+                                    801 ;	utils.c:51: Left_Enable_ = 1;
+                                    802 ;	assignBit
+      000163 D2 94            [12]  803 	setb	_P1_4
+                                    804 ;	utils.c:52: Right_Enable_ = 0;
+                                    805 ;	assignBit
+      000165 C2 95            [12]  806 	clr	_P1_5
+                                    807 ;	utils.c:53: Left_Forward_ = 1;
+                                    808 ;	assignBit
+      000167 D2 93            [12]  809 	setb	_P1_3
+                                    810 ;	utils.c:54: Left_Backward_ = 0;
+                                    811 ;	assignBit
+      000169 C2 92            [12]  812 	clr	_P1_2
+                                    813 ;	utils.c:55: }
+      00016B 22               [24]  814 	ret
+                                    815 ;------------------------------------------------------------
+                                    816 ;Allocation info for local variables in function 'Right_Rotate_Fast'
+                                    817 ;------------------------------------------------------------
+                                    818 ;	utils.c:57: void Right_Rotate_Fast() {
+                                    819 ;	-----------------------------------------
+                                    820 ;	 function Right_Rotate_Fast
+                                    821 ;	-----------------------------------------
+      00016C                        822 _Right_Rotate_Fast:
+                                    823 ;	utils.c:58: Right_Enable_ = 1;
+                                    824 ;	assignBit
+      00016C D2 95            [12]  825 	setb	_P1_5
+                                    826 ;	utils.c:59: Left_Enable_ = 1;
+                                    827 ;	assignBit
+      00016E D2 94            [12]  828 	setb	_P1_4
+                                    829 ;	utils.c:60: Left_Forward_ = 1;
+                                    830 ;	assignBit
+      000170 D2 93            [12]  831 	setb	_P1_3
+                                    832 ;	utils.c:61: Left_Backward_ = 0;
+                                    833 ;	assignBit
+      000172 C2 92            [12]  834 	clr	_P1_2
+                                    835 ;	utils.c:62: Right_Backward_ = 1;
+                                    836 ;	assignBit
+      000174 D2 97            [12]  837 	setb	_P1_7
+                                    838 ;	utils.c:63: Right_Forward_ = 0;
+                                    839 ;	assignBit
+      000176 C2 96            [12]  840 	clr	_P1_6
+                                    841 ;	utils.c:64: }
+      000178 22               [24]  842 	ret
+                                    843 ;------------------------------------------------------------
+                                    844 ;Allocation info for local variables in function 'Left_Rotate'
+                                    845 ;------------------------------------------------------------
+                                    846 ;	utils.c:66: void Left_Rotate() {
+                                    847 ;	-----------------------------------------
+                                    848 ;	 function Left_Rotate
+                                    849 ;	-----------------------------------------
+      000179                        850 _Left_Rotate:
+                                    851 ;	utils.c:67: Left_Enable_ = 0;
+                                    852 ;	assignBit
+      000179 C2 94            [12]  853 	clr	_P1_4
+                                    854 ;	utils.c:68: Right_Enable_ = 1;
+                                    855 ;	assignBit
+      00017B D2 95            [12]  856 	setb	_P1_5
+                                    857 ;	utils.c:69: Right_Forward_ = 1;
+                                    858 ;	assignBit
+      00017D D2 96            [12]  859 	setb	_P1_6
+                                    860 ;	utils.c:70: Right_Backward_ = 0;
+                                    861 ;	assignBit
+      00017F C2 97            [12]  862 	clr	_P1_7
+                                    863 ;	utils.c:71: }
+      000181 22               [24]  864 	ret
+                                    865 ;------------------------------------------------------------
+                                    866 ;Allocation info for local variables in function 'Left_Rotate_Fast'
+                                    867 ;------------------------------------------------------------
+                                    868 ;	utils.c:73: void Left_Rotate_Fast() {
+                                    869 ;	-----------------------------------------
+                                    870 ;	 function Left_Rotate_Fast
+                                    871 ;	-----------------------------------------
+      000182                        872 _Left_Rotate_Fast:
+                                    873 ;	utils.c:74: Left_Enable_ = 1;
+                                    874 ;	assignBit
+      000182 D2 94            [12]  875 	setb	_P1_4
+                                    876 ;	utils.c:75: Right_Enable_ = 1;
+                                    877 ;	assignBit
+      000184 D2 95            [12]  878 	setb	_P1_5
+                                    879 ;	utils.c:76: Left_Forward_ = 0;
+                                    880 ;	assignBit
+      000186 C2 93            [12]  881 	clr	_P1_3
+                                    882 ;	utils.c:77: Left_Backward_ = 1;
+                                    883 ;	assignBit
+      000188 D2 92            [12]  884 	setb	_P1_2
+                                    885 ;	utils.c:78: Right_Backward_ = 0;
+                                    886 ;	assignBit
+      00018A C2 97            [12]  887 	clr	_P1_7
+                                    888 ;	utils.c:79: Right_Forward_ = 1;
+                                    889 ;	assignBit
+      00018C D2 96            [12]  890 	setb	_P1_6
+                                    891 ;	utils.c:80: }
+      00018E 22               [24]  892 	ret
+                                    893 ;------------------------------------------------------------
+                                    894 ;Allocation info for local variables in function 'main'
+                                    895 ;------------------------------------------------------------
+                                    896 ;	main.c:15: void main() {
+                                    897 ;	-----------------------------------------
+                                    898 ;	 function main
+                                    899 ;	-----------------------------------------
+      00018F                        900 _main:
+                                    901 ;	main.c:16: Left_Forward();
+      00018F 12r01r4A         [24]  902 	lcall	_Left_Forward
+                                    903 ;	main.c:17: Right_Forward();
+      000192 12r01r59         [24]  904 	lcall	_Right_Forward
+                                    905 ;	main.c:18: while (1)
+      000195                        906 00102$:
+                                    907 ;	main.c:20: }
+      000195 80 FE            [24]  908 	sjmp	00102$
+                                    909 	.area CSEG    (CODE)
+                                    910 	.area CONST   (CODE)
+                                    911 	.area XINIT   (CODE)
+                                    912 	.area CABS    (ABS,CODE)
